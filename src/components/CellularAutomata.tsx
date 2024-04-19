@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 const PIXEL_SIZE = 1;
 
 
-function CaveGeneratorCanvas({ rows = 2000, cols = 500, interval = 100 }) {
+function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 100 }) {
     const [grid, setGrid] = useState([]);
     const canvasRef = useRef(null);
     const [isRunning, setIsRunning]= useState(false);
@@ -76,7 +76,7 @@ function CaveGeneratorCanvas({ rows = 2000, cols = 500, interval = 100 }) {
             <button onClick={() => setIsRunning(!isRunning)}>
                 {isRunning ? 'Stop' : 'Start'}
             </button>
-            <canvas ref={canvasRef} width={cols * 4} height={rows * 4} ></canvas>
+            <canvas ref={canvasRef} width={cols * PIXEL_SIZE} height={rows * PIXEL_SIZE} ></canvas>
         </div>
     );
 }

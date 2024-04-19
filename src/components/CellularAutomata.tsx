@@ -7,7 +7,7 @@ const PIXEL_SIZE = 1;
 function CaveGeneratorCanvas({ rows = 2000, cols = 500, interval = 100 }) {
     const [grid, setGrid] = useState([]);
     const canvasRef = useRef(null);
-    const isRunningRef = useRef(true);
+    const [isRunning, setIsRunning]= useState(false);
 
     useEffect(() => {
         setGrid(createGrid());
@@ -21,15 +21,15 @@ function CaveGeneratorCanvas({ rows = 2000, cols = 500, interval = 100 }) {
     }, [grid]);
 
     useEffect(() => {
-        if (isRunningRef.current) {
+        if (isRunning) {
             const timer = setInterval(() => {
-                if (isRunningRef.current) {
+                if (isRunning) {
                     updateGrid();
                 }
             }, interval);
             return () => clearInterval(timer);
         }
-    }, []);
+    }, [isRunning]);
 
     function createGrid() {
         return Array.from({ length: rows }, () =>
@@ -73,8 +73,8 @@ function CaveGeneratorCanvas({ rows = 2000, cols = 500, interval = 100 }) {
 
     return (
         <div>
-            <button onClick={() => isRunningRef.current = !isRunningRef.current}>
-                {isRunningRef.current ? 'Stop' : 'Start'}
+            <button onClick={() => setIsRunning(!isRunning)}>
+                {isRunning ? 'Stop' : 'Start'}
             </button>
             <canvas ref={canvasRef} width={cols * 4} height={rows * 4} ></canvas>
         </div>

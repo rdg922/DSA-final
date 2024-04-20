@@ -4,10 +4,16 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 const PIXEL_SIZE = 1;
 
 
-function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 100 }) {
+function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 300 }) {
+    const generationProbability = useRef(null);
+    const neighborRequirementAliveRef = useRef(null);
+    const neighborRequirementDeadRef = useRef(null);
     const [grid, setGrid] = useState([]);
     const canvasRef = useRef(null);
     const [isRunning, setIsRunning]= useState(false);
+
+    const minimumNeighborsIfAlive = neighborRequirementAliveRef.current?.value;
+    const minimumNeighborsIfDead = neighborRequirementDeadRef.current?.value;
 
     useEffect(() => {
         setGrid(createGrid());
@@ -33,8 +39,13 @@ function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 100 }) {
 
     function createGrid() {
         return Array.from({ length: rows }, () =>
-            Array.from({ length: cols }, () => Math.random() > 0.4 ? 1 : 0)
+            Array.from({ length: cols }, () => Math.random() > generationProbability.current?.value ? 1 : 0)
         );
+    }
+
+    function reset() {
+        setIsRunning(false);
+        return setGrid(createGrid());
     }
 
     function updateGrid() {
@@ -42,7 +53,7 @@ function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 100 }) {
             return prevGrid.map((row, rowIdx) => 
                 row.map((cell, colIdx) => {
                     const numNeighbors = getNeighbors(prevGrid, rowIdx, colIdx);
-                    return cell === 1 && numNeighbors >= 4 || cell === 0 && numNeighbors >= 5 ? 1 : 0;
+                    return cell === 1 && numNeighbors >= minimumNeighborsIfAlive || cell === 0 && numNeighbors >= minimumNeighborsIfDead ? 1 : 0;
                 })
             );
         });
@@ -73,9 +84,30 @@ function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 100 }) {
 
     return (
         <div>
-            <button onClick={() => setIsRunning(!isRunning)}>
-                {isRunning ? 'Stop' : 'Start'}
-            </button>
+            <div>
+                <input ref={generationProbability} className="text-black" defaultValue = "0.4">
+
+                </input>
+
+            </div>
+            <div>
+                <button onClick={reset}>
+                    reset
+                </button>
+            </div>
+            <div>
+                Neighbor requirement for a cell to stay alive: 
+                <input ref={neighborRequirementAliveRef} className="text-black" defaultValue={3}/>
+            </div>
+            <div>
+                Neighbor requirement for a cell to turn alive: 
+                <input ref={neighborRequirementDeadRef} className="text-black" defaultValue="5"/>
+            </div>
+            <div>
+                <button onClick={() => setIsRunning(!isRunning)}>
+                    {isRunning ? 'Stop' : 'Start'}
+                </button>
+            </div>
             <canvas ref={canvasRef} width={cols * PIXEL_SIZE} height={rows * PIXEL_SIZE} ></canvas>
         </div>
     );

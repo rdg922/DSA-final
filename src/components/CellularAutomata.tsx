@@ -92,10 +92,10 @@ function CaveGeneratorCanvas({ interval = 300 }) {
         <div>
              <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} ></canvas>
             <div className="bg-title-blue text-white py-2 px-4 rounded">
-              X size:
+              Row Count:
               <input type= "number" style={{width: "80px"}} className="px-4 text-white bg-transparent" value={rows} onChange={(e) => setRows(Number(e.target.value))}/>
               <br></br>
-              Y size:
+              Column Count:
               <input type= "number" style={{width: "80px"}} className="px-4 text-white bg-transparent" value={cols} onChange={(e) => setCols(Number(e.target.value))}/>
               <br></br>
             Initial generation probability: 

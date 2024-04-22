@@ -21,9 +21,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      <style>
-        @import url(https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+20&display=swap);
-      </style>
       </head>
       <body className={`font-sans ${inter.variable}`}>
       <div className="jersey-10-regular text-white w-full flex tracking-wide justify-center bg-[#2e026d]">

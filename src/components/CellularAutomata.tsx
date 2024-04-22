@@ -21,7 +21,7 @@ function CaveGeneratorCanvas({ interval = 300 }) {
 
     useEffect(() => {
         setGrid(createGrid());
-    }, [rows]);
+    }, [rows, cols]);
 
     useLayoutEffect(() => {
         if (canvasRef.current && grid.length) {

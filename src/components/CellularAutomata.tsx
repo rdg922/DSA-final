@@ -84,31 +84,25 @@ function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 300 }) {
 
     return (
         <div>
-            <div>
-                <input ref={generationProbability} className="text-black" defaultValue = "0.4">
-
-                </input>
-
+            <div className="bg-blue-500 text-white py-2 px-4 rounded">
+                Initial generation probability: 
+                <input ref={generationProbability} className="px-4 text-black bg-transparent" defaultValue={0.2}/> 
+                <br></br>
+                Neighbor requirement for a cell to stay alive:
+                <input ref={neighborRequirementDeadRef} className="px-4 text-black bg-transparent" defaultValue={6}/>
+                <br></br>
+                Neighbor requirement for a cell to turn alive:
+                <input ref={neighborRequirementDeadRef} className="px-4 text-black bg-transparent" defaultValue={3}/>
             </div>
-            <div>
-                <button onClick={reset}>
-                    reset
+            <div className='flex items-center justify-center'>
+                <button onClick={reset} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Reset
                 </button>
-            </div>
-            <div>
-                Neighbor requirement for a cell to stay alive: 
-                <input ref={neighborRequirementAliveRef} className="text-black" defaultValue={3}/>
-            </div>
-            <div>
-                Neighbor requirement for a cell to turn alive: 
-                <input ref={neighborRequirementDeadRef} className="text-black" defaultValue="5"/>
-            </div>
-            <div>
-                <button onClick={() => setIsRunning(!isRunning)}>
+                <button onClick={() => setIsRunning(!isRunning)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     {isRunning ? 'Stop' : 'Start'}
                 </button>
             </div>
-            <canvas ref={canvasRef} width={cols * PIXEL_SIZE} height={rows * PIXEL_SIZE} ></canvas>
+            <canvas className='flex items-center justify-center' ref={canvasRef} width={cols * PIXEL_SIZE} height={rows * PIXEL_SIZE} ></canvas>
         </div>
     );
 }

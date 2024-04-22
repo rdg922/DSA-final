@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
       <style>
-        @import url("https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+20&display=swap');
+        @import url(https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+20&display=swap);
       </style>
       </head>
       <body className={`font-sans ${inter.variable}`}>

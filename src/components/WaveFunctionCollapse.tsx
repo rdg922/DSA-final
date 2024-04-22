@@ -68,7 +68,7 @@ function Canvas() {
       })
     );
     Promise.all(loadedTiles).then(setTiles);
-    const initialGrid = Array.from({ length: DIM * DIM }, (_, i) => ({
+    const initialGrid = Array.from({ length: gridHeight * gridWidth}, (_, i) => ({
       collapsed: i === 0,
       options: i === 0 ? [DOWN] : [BLANK, UP, RIGHT, DOWN, LEFT]
     }));
@@ -98,7 +98,7 @@ function Canvas() {
     const w = CANVAS_WIDTH / gridWidth;
     const h = CANVAS_HEIGHT / gridHeight;
     ctx.imageSmoothingEnabled = false;
-    ctx.clearRect(0, 0, 800, 800);
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     grid.forEach((cell, index) => {
       const x = (index % gridWidth) * w;
       const y = Math.floor(index / gridWidth) * h;
@@ -132,21 +132,19 @@ const updateGrid = () => {
   const updatedGrid = grid.map((cell, index) => {
     if (cell.collapsed) return cell; // Skip already collapsed cells
 
-    const x = index % DIM;
-    const y = Math.floor(index / DIM);
+    const x = index % gridWidth;
+    const y = Math.floor(index / gridHeight);
     const directions = ['up', 'down', 'right', 'left'];
-    const deltas = { up: -DIM, down: DIM, right: 1, left: -1 };
+    const deltas = { up: -gridWidth, down: gridWidth, right: 1, left: -1 };
     const ruleIndices = { up: 2, down: 0, right: 3, left: 1 };
 
     directions.forEach(dir => {
-      if ((dir === 'up' && y > 0) || (dir === 'down' && y < DIM - 1) || (dir === 'right' && x < DIM - 1) || (dir === 'left' && x > 0)) {
         const neighborIdx = index + deltas[dir];
         const neighbor = grid[neighborIdx];
-        if (neighbor.collapsed) {
+        if (neighbor && neighbor.collapsed) {
           let validOptions = neighbor.options.flatMap(option => rules[option][ruleIndices[dir]]);
           cell.options = cell.options.filter(option => validOptions.includes(option));
         }
-      }
     });
 
     return cell;

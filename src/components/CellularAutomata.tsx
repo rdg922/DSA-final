@@ -16,8 +16,6 @@ function CaveGeneratorCanvas({ interval = 300 }) {
     const [rows, setRows] = useState(60);
     const [cols, setCols] = useState(60);
 
-
-
     const minimumNeighborsIfAlive = neighborRequirementAliveRef.current?.value;
     const minimumNeighborsIfDead = neighborRequirementDeadRef.current?.value;
 

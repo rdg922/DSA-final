@@ -1,8 +1,8 @@
 'use client'
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 
-const CANVAS_WIDTH = 1000;
-const CANVAS_HEIGHT = 1000;
+const CANVAS_WIDTH = 600;
+const CANVAS_HEIGHT = 600;
 
 
 function CaveGeneratorCanvas({ interval = 300 }) {
@@ -92,30 +92,29 @@ function CaveGeneratorCanvas({ interval = 300 }) {
 
     return (
         <div>
-            <div>
-              <input className="text-black" value={rows} onChange={(e) => setRows(Number(e.target.value))}/>
-              <input className="text-black" value={cols} onChange={(e) => setCols(Number(e.target.value))}/>
+            <div className="bg-blue-500 text-white py-2 px-4 rounded">
+              X size:
+              <input type= "number" style={{width: "80px"}} className="px-4 text-black bg-transparent" value={rows} onChange={(e) => setRows(Number(e.target.value))}/>
+              <br></br>
+              Y size:
+              <input type= "number" style={{width: "80px"}} className="px-4 text-black bg-transparent" value={cols} onChange={(e) => setCols(Number(e.target.value))}/>
+              <br></br>
+            Initial generation probability: 
+                <input style={{width: "80px"}} ref={generationProbability} className="px-4 text-black bg-transparent" defaultValue = "0.4"></input>
+            <br></br>
+                Neighbor requirement for a cell to stay alive: 
+                <input style={{width: "80px"}} ref={neighborRequirementAliveRef} className="px-4 text-black bg-transparent" defaultValue={3}/>
+            <br></br>
+                Neighbor requirement for a cell to turn alive: 
+                <input style={{width: "80px"}} ref={neighborRequirementDeadRef} className="px-4 text-black bg-transparent" defaultValue={5}/>
             </div>
             <div>
-                <input ref={generationProbability} className="text-black" defaultValue = "0.4">
-                </input>
-
-            </div>
-            <div>
-                <button onClick={reset}>
-                    reset
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={reset}>
+                    Reset
                 </button>
             </div>
             <div>
-                Neighbor requirement for a cell to stay alive: 
-                <input ref={neighborRequirementAliveRef} className="text-black" defaultValue={3}/>
-            </div>
-            <div>
-                Neighbor requirement for a cell to turn alive: 
-                <input ref={neighborRequirementDeadRef} className="text-black" defaultValue="5"/>
-            </div>
-            <div>
-                <button onClick={() => setIsRunning(!isRunning)}>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setIsRunning(!isRunning)}>
                     {isRunning ? 'Stop' : 'Start'}
                 </button>
             </div>

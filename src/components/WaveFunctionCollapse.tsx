@@ -157,12 +157,17 @@ const updateGrid = () => {
       <div>
       <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} />
     </div>
-    <div className="bg-blue-500 text-white py-2 px-4 rounded">
+    <div className="bg-title-blue text-white py-2 px-4 rounded">
       Row Count:
-      <input type="number" style={{width: "80px"}} className="px-4 text-black bg-transparent" defaultValue={gridHeight} onChange={e => setGridHeight(Number(e.target.value))} />
-       <br></br>
+      <input type="number" style={{width: "80px"}} className="px-4 text-white bg-transparent" defaultValue={gridHeight} onChange={e => setGridHeight(Number(e.target.value))} />
+     <br></br>
       Column Count:
-     <input type="number" style={{width: "80px"}} className="px-4 text-black bg-transparent" defaultValue={gridWidth} onChange={e => setGridWidth(Number(e.target.value))} />
+     <input type="number" style={{width: "80px"}} className="px-4 text-white bg-transparent" defaultValue={gridWidth} onChange={e => setGridWidth(Number(e.target.value))} />
+    </div>
+    <div className='w-full flex flex-col justify-center'>
+    <br></br>
+      <button className="bg-title-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setIsRunning(!isRunning)}>{isRunning ? "Stop" : "Continue"}</button>
+      <button className="bg-title-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={resetGrid}>Reset</button>
     </div>
     </div>
   );

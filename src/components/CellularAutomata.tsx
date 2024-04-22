@@ -86,13 +86,13 @@ function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 300 }) {
         <div>
             <div className="bg-blue-500 text-white py-2 px-4 rounded">
                 Initial generation probability: 
-                <input type="number" style={{width: "80px"}} ref={generationProbability} className="px-4 text-black bg-transparent" defaultValue={0.2}/> 
+                <input type="number" style={{width: "80px"}} ref={generationProbability} className="px-4 text-black bg-transparent" defaultValue={0.4}/> 
                 <br></br>
                 Neighbor requirement for a cell to stay alive:
-                <input type="number" style={{width: "80px"}} ref={neighborRequirementDeadRef} className="px-4 text-black bg-transparent" defaultValue={6}/>
+                <input type="number" style={{width: "80px"}} ref={neighborRequirementDeadRef} className="px-4 text-black bg-transparent" defaultValue={3}/>
                 <br></br>
                 Neighbor requirement for a cell to turn alive:
-                <input type="number" style={{width: "80px"}} ref={neighborRequirementDeadRef} className="px-4 text-black bg-transparent" defaultValue={3}/>
+                <input type="number" style={{width: "80px"}} ref={neighborRequirementDeadRef} className="px-4 text-black bg-transparent" defaultValue={5}/>
             </div>
             <div className='flex items-center justify-center'>
                 <button onClick={reset} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

@@ -91,28 +91,29 @@ function CaveGeneratorCanvas({ interval = 300 }) {
     return (
         <div>
              <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} ></canvas>
-            <div className="bg-blue-500 text-white py-2 px-4 rounded">
+            <div className="bg-title-blue text-white py-2 px-4 rounded">
               X size:
-              <input type= "number" style={{width: "80px"}} className="px-4 text-black bg-transparent" value={rows} onChange={(e) => setRows(Number(e.target.value))}/>
+              <input type= "number" style={{width: "80px"}} className="px-4 text-white bg-transparent" value={rows} onChange={(e) => setRows(Number(e.target.value))}/>
               <br></br>
               Y size:
-              <input type= "number" style={{width: "80px"}} className="px-4 text-black bg-transparent" value={cols} onChange={(e) => setCols(Number(e.target.value))}/>
+              <input type= "number" style={{width: "80px"}} className="px-4 text-white bg-transparent" value={cols} onChange={(e) => setCols(Number(e.target.value))}/>
               <br></br>
             Initial generation probability: 
-                <input style={{width: "80px"}} ref={generationProbability} className="px-4 text-black bg-transparent" defaultValue = "0.4"></input>
+                <input style={{width: "80px"}} ref={generationProbability} className="px-4 text-white bg-transparent" defaultValue = "0.4"></input>
             <br></br>
                 Neighbor requirement for a cell to stay alive: 
-                <input style={{width: "80px"}} ref={neighborRequirementAliveRef} className="px-4 text-black bg-transparent" defaultValue={3}/>
+                <input style={{width: "80px"}} ref={neighborRequirementAliveRef} className="px-4 text-white bg-transparent" defaultValue={3}/>
             <br></br>
                 Neighbor requirement for a cell to turn alive: 
-                <input style={{width: "80px"}} ref={neighborRequirementDeadRef} className="px-4 text-black bg-transparent" defaultValue={5}/>
+                <input style={{width: "80px"}} ref={neighborRequirementDeadRef} className="px-4 text-white bg-transparent" defaultValue={5}/>
             </div>
-            <div>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={reset}>
+            <div className='w-full flex flex-col justify-center'>
+                <br></br>
+                <button className="bg-title-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={reset}>
                     Reset
                 </button>
             
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setIsRunning(!isRunning)}>
+                <button className="bg-title-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setIsRunning(!isRunning)}>
                     {isRunning ? 'Stop' : 'Start'}
                 </button>
             </div>

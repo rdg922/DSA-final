@@ -26,7 +26,7 @@ export default function RootLayout({
       </style>
       </head>
       <body className={`font-sans ${inter.variable}`}>
-      <div className="jersey-10-regular w-full flex justify-center">
+      <div className="jersey-10-regular text-white w-full flex tracking-wide justify-center bg-[#2e026d]">
       Cellular Automata vs. Wave Function Collapse
       </div>
       {children}

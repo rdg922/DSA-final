@@ -146,8 +146,8 @@ const updateGrid = () => {
 
   return (
     <>
-     <input type="number" defaultValue={gridWidth} onChange={e => setGridWidth(Number(e.target.value))} />
-      <input type="number"  defaultValue={gridHeight} onChange={e => setGridHeight(Number(e.target.value))} />
+     <input type="number" className="text-black" defaultValue={gridWidth} onChange={e => setGridWidth(Number(e.target.value))} />
+      <input type="number" className="text-black" defaultValue={gridHeight} onChange={e => setGridHeight(Number(e.target.value))} />
       <button onClick={() => setIsRunning(!isRunning)}>{isRunning ? "Stop" : "Continue"}</button>
       <canvas ref={canvasRef} width={800} height={800} />
     </>

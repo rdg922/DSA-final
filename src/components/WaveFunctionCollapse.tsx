@@ -7,6 +7,9 @@ const RIGHT = 2;
 const DOWN = 3;
 const LEFT = 4;
 
+const CANVAS_WIDTH = 1000;
+const CANVAS_HEIGHT = 1000;
+
 const rules = [
   [
     [BLANK, UP],
@@ -50,6 +53,13 @@ function Canvas() {
 
   // Load tiles images
   useEffect(() => {
+    resetGrid();
+  }, []);
+
+  const resetGrid = () => {
+    
+    setIsRunning(false);
+
     const loadedTiles = [BLANK, UP, RIGHT, DOWN, LEFT].map(index =>
       new Promise(resolve => {
         const img = new Image();
@@ -63,7 +73,7 @@ function Canvas() {
       options: i === 0 ? [DOWN] : [BLANK, UP, RIGHT, DOWN, LEFT]
     }));
     setGrid(initialGrid);
-  }, []);
+  }
 
   useEffect(() => {
     const initialGrid = Array.from({ length: gridWidth * gridHeight }, (_, i) => ({
@@ -85,8 +95,8 @@ function Canvas() {
   // Draw function
   useEffect(() => {
     const ctx = canvasRef.current.getContext('2d');
-    const w = 800 / gridWidth;
-    const h = 800 / gridHeight;
+    const w = CANVAS_WIDTH / gridWidth;
+    const h = CANVAS_HEIGHT / gridHeight;
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, 800, 800);
     grid.forEach((cell, index) => {
@@ -154,8 +164,9 @@ const updateGrid = () => {
       <input type="number" style={{width: "300px"}} className="px-4 text-black bg-transparent" defaultValue={gridHeight} onChange={e => setGridHeight(Number(e.target.value))} />
     </div>
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setIsRunning(!isRunning)}>{isRunning ? "Stop" : "Continue"}</button>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={resetGrid}>Reset</button>
     <div>
-      <canvas ref={canvasRef} width={800} height={800} />
+      <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} />
     </div>
     </div>
   );

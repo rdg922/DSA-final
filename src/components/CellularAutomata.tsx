@@ -1,10 +1,11 @@
 'use client'
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 
-const PIXEL_SIZE = 1;
+const CANVAS_WIDTH = 1000;
+const CANVAS_HEIGHT = 1000;
 
 
-function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 300 }) {
+function CaveGeneratorCanvas({ interval = 300 }) {
     const generationProbability = useRef(null);
     const neighborRequirementAliveRef = useRef(null);
     const neighborRequirementDeadRef = useRef(null);
@@ -12,12 +13,17 @@ function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 300 }) {
     const canvasRef = useRef(null);
     const [isRunning, setIsRunning]= useState(false);
 
+    const [rows, setRows] = useState(60);
+    const [cols, setCols] = useState(60);
+
+
+
     const minimumNeighborsIfAlive = neighborRequirementAliveRef.current?.value;
     const minimumNeighborsIfDead = neighborRequirementDeadRef.current?.value;
 
     useEffect(() => {
         setGrid(createGrid());
-    }, []);
+    }, [rows]);
 
     useLayoutEffect(() => {
         if (canvasRef.current && grid.length) {
@@ -74,35 +80,46 @@ function CaveGeneratorCanvas({ rows = 1000, cols = 500, interval = 300 }) {
     }
 
     function drawGrid(ctx, grid) {
+      let pixelWidth = CANVAS_WIDTH / cols;
+      let pixelHeight = CANVAS_HEIGHT / rows;
         grid.forEach((row, i) => {
             row.forEach((cell, j) => {
                 ctx.fillStyle = cell ? 'black' : 'white';
-                ctx.fillRect(j * PIXEL_SIZE, i * PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE); // Assuming cell size is 5x5 pixels
+                ctx.fillRect(j * pixelWidth, i * pixelHeight, pixelWidth, pixelHeight); // Assuming cell size is 5x5 pixels
             });
         });
     }
 
     return (
         <div>
-            <div className="bg-blue-500 text-white py-2 px-4 rounded">
-                Initial generation probability: 
-                <input type="number" style={{width: "80px"}} ref={generationProbability} className="px-4 text-black bg-transparent" defaultValue={0.4}/> 
-                <br></br>
-                Neighbor requirement for a cell to stay alive:
-                <input type="number" style={{width: "80px"}} ref={neighborRequirementDeadRef} className="px-4 text-black bg-transparent" defaultValue={3}/>
-                <br></br>
-                Neighbor requirement for a cell to turn alive:
-                <input type="number" style={{width: "80px"}} ref={neighborRequirementDeadRef} className="px-4 text-black bg-transparent" defaultValue={5}/>
+            <div>
+              <input className="text-black" value={rows} onChange={(e) => setRows(Number(e.target.value))}/>
+              <input className="text-black" value={cols} onChange={(e) => setCols(Number(e.target.value))}/>
             </div>
-            <div className='flex items-center justify-center'>
-                <button onClick={reset} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Reset
+            <div>
+                <input ref={generationProbability} className="text-black" defaultValue = "0.4">
+                </input>
+
+            </div>
+            <div>
+                <button onClick={reset}>
+                    reset
                 </button>
-                <button onClick={() => setIsRunning(!isRunning)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            </div>
+            <div>
+                Neighbor requirement for a cell to stay alive: 
+                <input ref={neighborRequirementAliveRef} className="text-black" defaultValue={3}/>
+            </div>
+            <div>
+                Neighbor requirement for a cell to turn alive: 
+                <input ref={neighborRequirementDeadRef} className="text-black" defaultValue="5"/>
+            </div>
+            <div>
+                <button onClick={() => setIsRunning(!isRunning)}>
                     {isRunning ? 'Stop' : 'Start'}
                 </button>
             </div>
-            <canvas className='flex items-center justify-center' ref={canvasRef} width={cols * PIXEL_SIZE} height={rows * PIXEL_SIZE} ></canvas>
+            <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} ></canvas>
         </div>
     );
 }

@@ -45,6 +45,8 @@ function Canvas() {
   const [tiles, setTiles] = useState([]);
   const [grid, setGrid] = useState([]);
   const [isRunning, setIsRunning] = useState(false)
+  const [gridWidth, setGridWidth] = useState(10);
+  const [gridHeight, setGridHeight] = useState(10);
 
   // Load tiles images
   useEffect(() => {
@@ -64,25 +66,32 @@ function Canvas() {
   }, []);
 
   useEffect(() => {
+    const initialGrid = Array.from({ length: gridWidth * gridHeight }, (_, i) => ({
+      collapsed: false,
+      options: [BLANK, UP, RIGHT, DOWN, LEFT]
+    }));
+    setGrid(initialGrid);
+  }, [gridWidth, gridHeight]);
+
+  useEffect(() => {
     if (isRunning) {
-      console.log('test')
       const timer = setInterval(() => {
         if (isRunning) updateGrid();
       }, 100)
       return () => clearInterval(timer);
     }
-  }, [isRunning])
+  }, [isRunning]);
 
   // Draw function
   useEffect(() => {
     const ctx = canvasRef.current.getContext('2d');
-    const w = 800 / DIM;
-    const h = 800 / DIM;
-      ctx.imageSmoothingEnabled = false;  // Disable smoothing
+    const w = 800 / gridWidth;
+    const h = 800 / gridHeight;
+    ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, 800, 800);
     grid.forEach((cell, index) => {
-      const x = (index % DIM) * w;
-      const y = Math.floor(index / DIM) * h;
+      const x = (index % gridWidth) * w;
+      const y = Math.floor(index / gridWidth) * h;
       if (cell.collapsed && tiles[cell.options[0]]) {
         ctx.drawImage(tiles[cell.options[0]], x, y, w, h);
       } else {
@@ -90,7 +99,7 @@ function Canvas() {
         ctx.strokeRect(x, y, w, h);
       }
     });
-  }, [grid, tiles]);
+  }, [grid, tiles, gridWidth, gridHeight]);
 
 const updateGrid = () => {
   // This approach ensures that we are not mutating the original grid state directly
@@ -137,8 +146,10 @@ const updateGrid = () => {
 
   return (
     <>
-      <button onClick={() => setIsRunning(!isRunning)}>{isRunning ? "stop" : "continue"}</button>
-    <canvas ref={canvasRef} width={800} height={800} />
+     <input type="number" defaultValue={gridWidth} onChange={e => setGridWidth(Number(e.target.value))} />
+      <input type="number"  defaultValue={gridHeight} onChange={e => setGridHeight(Number(e.target.value))} />
+      <button onClick={() => setIsRunning(!isRunning)}>{isRunning ? "Stop" : "Continue"}</button>
+      <canvas ref={canvasRef} width={800} height={800} />
     </>
   );
 }

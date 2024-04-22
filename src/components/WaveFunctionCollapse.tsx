@@ -156,10 +156,10 @@ const updateGrid = () => {
     <div>
     <div className="bg-blue-500 text-white py-2 px-4 rounded">
       X size:
-     <input type="number" style={{width: "300px"}} className="px-4 text-black bg-transparent" defaultValue={gridWidth} onChange={e => setGridWidth(Number(e.target.value))} />
+     <input type="number" style={{width: "80px"}} className="px-4 text-black bg-transparent" defaultValue={gridWidth} onChange={e => setGridWidth(Number(e.target.value))} />
      <br></br>
       Y size:
-      <input type="number" style={{width: "300px"}} className="px-4 text-black bg-transparent" defaultValue={gridHeight} onChange={e => setGridHeight(Number(e.target.value))} />
+      <input type="number" style={{width: "80px"}} className="px-4 text-black bg-transparent" defaultValue={gridHeight} onChange={e => setGridHeight(Number(e.target.value))} />
     </div>
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setIsRunning(!isRunning)}>{isRunning ? "Stop" : "Continue"}</button>
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={resetGrid}>Reset</button>

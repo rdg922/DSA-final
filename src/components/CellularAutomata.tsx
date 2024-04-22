@@ -92,6 +92,7 @@ function CaveGeneratorCanvas({ interval = 300 }) {
 
     return (
         <div>
+             <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} ></canvas>
             <div className="bg-blue-500 text-white py-2 px-4 rounded">
               X size:
               <input type= "number" style={{width: "80px"}} className="px-4 text-black bg-transparent" value={rows} onChange={(e) => setRows(Number(e.target.value))}/>
@@ -112,13 +113,12 @@ function CaveGeneratorCanvas({ interval = 300 }) {
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={reset}>
                     Reset
                 </button>
-            </div>
-            <div>
+            
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setIsRunning(!isRunning)}>
                     {isRunning ? 'Stop' : 'Start'}
                 </button>
             </div>
-            <canvas ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} ></canvas>
+           
         </div>
     );
 }

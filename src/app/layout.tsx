@@ -20,8 +20,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+20&display=swap');
+      </style>
+      </head>
       <body className={`font-sans ${inter.variable}`}>
-      <div className="w-full flex justify-center p-4">
+      <div className="jersey-10-regular w-full flex justify-center">
       Cellular Automata vs. Wave Function Collapse
       </div>
       {children}

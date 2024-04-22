@@ -11,6 +11,7 @@
 
     /* Strictness */
     "strict": false,
+    "allowImportingTsExtensions": true,
     "noUncheckedIndexedAccess": true,
     "checkJs": true,
 

@@ -166,7 +166,7 @@ const updateGrid = () => {
     </div>
     <div className='w-full flex flex-col justify-center'>
     <br></br>
-      <button className="bg-title-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setIsRunning(!isRunning)}>{isRunning ? "Stop" : "Continue"}</button>
+      <button className="bg-title-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setIsRunning(!isRunning)}>{isRunning ? "Stop" : "Start"}</button>
       <button className="bg-title-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={resetGrid}>Reset</button>
     </div>
     </div>

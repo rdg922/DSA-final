@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-const DIM = 10;
 const BLANK = 0;
 const UP = 1;
 const RIGHT = 2;
@@ -43,7 +42,7 @@ const rules = [
   ],
 ]
 
-function Canvas() {
+function WaveFunctionCollapse() {
   const canvasRef = useRef(null);
   const [tiles, setTiles] = useState([]);
   const [grid, setGrid] = useState([]);
@@ -173,5 +172,5 @@ function Canvas() {
   );
 }
 
-export default Canvas;
+export default WaveFunctionCollapse;
 
